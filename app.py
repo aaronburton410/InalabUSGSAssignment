@@ -12,8 +12,9 @@ Greetings
 """
 @app.route("/")
 def hello():
-    return "Hello, World!"
-
+    custom_message = os.getenv('CUSTOM_MESSAGE', 'Hello, World!')  # Get custom message from environment variable, defaulting to 'Hello, World!' if not set
+    return custom_message
+    
 """
 Return sample JSON data
 """

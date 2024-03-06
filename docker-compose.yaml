@@ -1,0 +1,23 @@
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 5000:5000
+    environment:
+      CUSTOM_MESSAGE: "Welcome to Docker compose"
+  #Here we pull the nginx image and copy the configuration that 
+  #listens on port 80 and forwards the requests to the flask application at port 5000
+  #it sets the necessary headers for the forwarded request. [please refer to the nginx.conf file]
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - server
+
